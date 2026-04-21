@@ -1,0 +1,109 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --paper: #F5F0E6;
+  --ink: #1A1814;
+  --ink-muted: #6B6458;
+  --accent: #1F4E4F;
+  --hairline: #D8D0BF;
+  --ease-apple: cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+html {
+  background: var(--paper);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 34px;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+/* Inline links — ink underlined; turn accent on hover. */
+a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.1em;
+  transition: color 150ms linear, text-decoration-thickness 150ms linear;
+}
+a:hover {
+  color: var(--accent);
+  text-decoration-thickness: 2px;
+}
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 1px;
+}
+
+::selection {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* Reveal primitives — drive with `data-reveal` + `data-revealed`. */
+[data-reveal="rise"] {
+  opacity: 0;
+  transform: translate3d(0, 16px, 0);
+  transition:
+    opacity 600ms var(--ease-apple),
+    transform 600ms var(--ease-apple);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+[data-reveal="rise-sm"] {
+  opacity: 0;
+  transform: translate3d(0, 8px, 0);
+  transition:
+    opacity 600ms var(--ease-apple),
+    transform 600ms var(--ease-apple);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+[data-reveal="word"] {
+  display: inline-block;
+  opacity: 0;
+  transform: translate3d(0, 12px, 0);
+  transition:
+    opacity 700ms var(--ease-apple),
+    transform 700ms var(--ease-apple);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+[data-revealed="true"] {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Photo Ken-Burns drift — applied to <img> inside [data-photo]. */
+[data-photo] {
+  overflow: hidden;
+}
+[data-photo] > .photo-inner {
+  transform: scale(1.04);
+  transition: transform 900ms var(--ease-apple);
+  will-change: transform;
+}
+[data-photo][data-revealed="true"] > .photo-inner {
+  transform: scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal],
+  [data-reveal="word"],
+  [data-photo] > .photo-inner {
+    transition-duration: 300ms !important;
+    transform: none !important;
+  }
+  [data-reveal] { opacity: 0; }
+  [data-revealed="true"] { opacity: 1 !important; }
+  /* Pinned sections release in JS layer; nothing to do here. */
+}

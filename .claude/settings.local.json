@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p _fonts_extracted)",
+      "Bash(unzip -o \"../sohne-font-family.zip\" -d _fonts_extracted)",
+      "Bash(mkdir -p app/fonts app/faq components public)",
+      "Bash(cp \"_fonts_extracted/TestSohne-Buch-BF663d89cd32e6a.otf\" app/fonts/Sohne-Buch.otf)",
+      "Bash(cp \"_fonts_extracted/TestSohne-Halbfett-BF663d89cd2d67b.otf\" app/fonts/Sohne-Halbfett.otf)",
+      "Bash(rm -rf _fonts_extracted)"
+    ]
+  }
+}
